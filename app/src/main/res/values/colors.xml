@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="celtics">#009E60</color>
+
+    <color name="hawks">#000080</color>
+
+    <color name="nets">#000000</color>
+
+    <color name="hornets">#1D8CAA</color>
+
+    <color name="bulls">#D4001F</color>
+
+    <color name="cavs">#B3121D</color>
+
+    <color name="mavericks">#0B60AD</color>
+
+    <color name="nuggets">#4B90CD</color>
+
+    <color name="pistons">#00519A</color>
+
+    <color name="warriors">#04529C</color>
+
+    <color name="rockets">#CE1138</color>
+
+    <color name="pacers">#092C57</color>
+
+    <color name="cippers">#EE2944</color>
+
+    <color name="lakers">#4A2583</color>
+
+    <color name="grizzles">#7399C6</color>
+
+    <color name="heat">#B62630</color>
+
+    <color name="bucks">#003614</color>
+
+    <color name="timberwolves">#0F4D92</color>
+
+    <color name="pelicans">#B4975A</color>
+
+    <color name="knicks">#0953A0</color>
+
+    <color name="thunder">#007DC3</color>
+
+    <color name="magic">#0047AB</color>
+
+    <color name="sixers">#D0103A</color>
+
+    <color name="suns">#E65F20</color>
+
+    <color name="blazers">#F0163A</color>
+
+    <color name="kings">#753BBD</color>
+
+    <color name="spurs">#000000</color>
+
+    <color name="raptors">#B31B1B</color>
+    <color name="jazz">#00275D</color>
+    <color name="wizards">#C60C30</color>
+</resources>

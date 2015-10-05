@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Eastern Conference">
+        <menu>
+            <item
+                android:id="@+id/atlanta"
+                android:title="Atlanta Hawks" />
+            <item
+                android:id="@+id/boston"
+                android:title="Boston Celtics" />
+
+            <item
+                android:id="@+id/brooklyn"
+                android:title="Brooklyn Nets" />
+            <item
+                android:id="@+id/charlotte"
+                android:title="Charlotte Hornets" />
+            <item
+                android:id="@+id/chicago"
+                android:title="Chicago Bulls" />
+            <item
+                android:id="@+id/cleveland"
+                android:title="Cleveland Cavaliers" />
+
+            <item
+                android:id="@+id/detroit"
+                android:title="Detroit Pistons" />
+
+            <item
+                android:id="@+id/indiana"
+                android:title="Indiana Pacers" />
+            <item
+                android:id="@+id/miami"
+                android:title="Miami Heat" />
+
+            <item
+                android:id="@+id/milwaukee"
+                android:title="Milwaukee Bucks" />
+
+            <item
+                android:id="@+id/newyork"
+                android:title="New York Knicks" />
+
+            <item
+                android:id="@+id/orlando"
+                android:title="Orlando Magic" />
+
+            <item
+                android:id="@+id/philadelphia"
+                android:title="Philadelphia Sixers" />
+
+            <item
+                android:id="@+id/toronto"
+                android:title="Toronto Raptors" />
+
+            <item
+                android:id="@+id/washington"
+                android:title="Washington Wizards" />
+
+        </menu>
+    </item>
+
+    <item android:title="Western Conference">
+        <menu>
+            <item
+                android:id="@+id/dallas"
+                android:title="Dallas Mavericks" />
+            <item
+                android:id="@+id/denver"
+                android:title="Denver Nuggets" />
+            <item
+                android:id="@+id/goldenstate"
+                android:title="Golden State Warriors" />
+
+            <item
+                android:id="@+id/houston"
+                android:title="Houston Rockets" />
+
+            <item
+                android:id="@+id/la_clippers"
+                android:title="LA Clippers" />
+
+            <item
+                android:id="@+id/la_lakers"
+                android:title="LA Lakers" />
+
+            <item
+                android:id="@+id/memphis"
+                android:title="Memphis Grizzlies" />
+
+            <item
+                android:id="@+id/minnestoa"
+                android:title="Minnesota Timberwolves" />
+
+
+            <item
+                android:id="@+id/new_orleans"
+                android:title="New Orleans Pelicans" />
+
+            <item
+                android:id="@+id/oklahomacity"
+                android:title="Oaklahoma City Thunder" />
+
+            <item
+                android:id="@+id/phoenix"
+                android:title="Phoenix Suns" />
+
+            <item
+                android:id="@+id/portland"
+                android:title="Portland Trail Blazers" />
+
+            <item
+                android:id="@+id/sacramento"
+                android:title="Sacramento Kings" />
+
+            <item
+                android:id="@+id/san_antonio"
+                android:title="San Antonio Spurs" />
+
+            <item
+                android:id="@+id/utah"
+                android:title="Utah Jazz" />
+        </menu>
+    </item>
+</menu>

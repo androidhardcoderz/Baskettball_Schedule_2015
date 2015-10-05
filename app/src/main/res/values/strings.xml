@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Baskettball Schedule 2015</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="schedule_file">schedule.txt</string>
+
+
+</resources>
