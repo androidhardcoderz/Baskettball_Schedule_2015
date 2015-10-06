@@ -17,6 +17,7 @@ public class TeamNames {
     public TeamNames() {
         teamNames.add("Atlanta Hawks");
         teamNames.add("Boston Celtics");
+        teamNames.add("Brooklyn Nets");
         teamNames.add("Charlotte Hornets");
         teamNames.add("Chicago Bulls");
         teamNames.add("Cleveland Cavaliers");
@@ -26,18 +27,17 @@ public class TeamNames {
         teamNames.add("Golden State Warriors");
         teamNames.add("Houston Rockets");
         teamNames.add("Indiana Pacers");
-        teamNames.add("LA Clippers");
-        teamNames.add("LA Lakers");
+        teamNames.add("Los Angeles Clippers");
+        teamNames.add("Los Angeles Lakers");
         teamNames.add("Memphis Grizzlies");
         teamNames.add("Miami Heat");
         teamNames.add("Milwaukee Bucks");
         teamNames.add("Minnesota Timberwolves");
-        teamNames.add("New Jersey Nets");
         teamNames.add("New Orleans Pelicans");
         teamNames.add("New York Knicks");
         teamNames.add("Oklahoma City Thunder");
         teamNames.add("Orlando Magic");
-        teamNames.add("Philadelphia Sixers");
+        teamNames.add("Philadelphia 76ers");
         teamNames.add("Phoenix Suns");
         teamNames.add("Portland Trail Blazers");
         teamNames.add("Sacramento Kings");

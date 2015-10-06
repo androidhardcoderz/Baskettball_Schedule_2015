@@ -3,6 +3,7 @@ package com.baskettballschedule2015.app;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 
@@ -18,14 +21,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     ScheduleLoader loader;
     LoadingFragment loadingFragment;
+    String teamNameSelected;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ImageView filterImageView = (ImageView) toolbar.findViewById(R.id.filterImageView);
+        filterImageView.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -36,6 +45,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //open drawer for first run
+        if (PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).getBoolean("FIRST", true) == true) {
+            //show drawer open it for first time
+            drawer.openDrawer(GravityCompat.START);
+            PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).edit().putBoolean("FIRST", false).apply();
+        }
+
     }
 
     @Override
@@ -51,16 +68,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        switch (id) {
-            case R.id.atlanta:
-
-                break;
-            default:
-                break;
-        }
+        teamNameSelected = item.getTitle().toString();
 
         showLoadingFragment();
         startBackgroundThread(item.getTitle().toString());
@@ -70,8 +79,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void showTeamFragment() {
+    private void showTeamFragment(ArrayList<Game> games) {
         TeamFragment teamFragment = new TeamFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(TeamFragment.TEAM_DATA, games);
+        bundle.putInt(TeamFragment.TEAM_POSITION, new TeamNames().getTeamNames().indexOf(teamNameSelected));
+        teamFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, teamFragment).commit();
     }
 
@@ -85,16 +98,19 @@ public class MainActivity extends AppCompatActivity
         if (loader != null && loader.getStatus() == AsyncTask.Status.RUNNING) {
             loader.cancel(true);
         }
-        loader = new ScheduleLoader(this);
+        loader = new ScheduleLoader(this, new TeamNames().getTeamNames().indexOf(teamName));
         loader.execute(teamName);
     }
 
     class ScheduleLoader extends AsyncTask<String, Void, ArrayList<Game>> {
 
         Context context;
+        int index;
 
-        public ScheduleLoader(Context context) {
+        public ScheduleLoader(Context context, int index) {
+
             this.context = context;
+            this.index = index;
         }
 
         /**
@@ -114,9 +130,10 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected ArrayList<Game> doInBackground(String... params) {
             DownloadService service = new DownloadService(context, params[0]);
-
             try {
-                return service.parseSpecificTeamData(service.convertInputStreamToString());
+                TeamFiles teamFiles = new TeamFiles(context);
+                return service.parseSpecificTeamData(service.convertInputStreamToString(teamFiles.getFiles().get(index)));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -129,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<Game> games) {
             super.onPostExecute(games);
-            showTeamFragment();
+            showTeamFragment(games);
         }
     }
 

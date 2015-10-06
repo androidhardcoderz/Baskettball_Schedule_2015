@@ -4,57 +4,72 @@
         <menu>
             <item
                 android:id="@+id/atlanta"
+                android:icon="@drawable/open_heart"
                 android:title="Atlanta Hawks" />
             <item
                 android:id="@+id/boston"
+                android:icon="@drawable/open_heart"
                 android:title="Boston Celtics" />
 
             <item
                 android:id="@+id/brooklyn"
+                android:icon="@drawable/open_heart"
                 android:title="Brooklyn Nets" />
             <item
                 android:id="@+id/charlotte"
+                android:icon="@drawable/open_heart"
                 android:title="Charlotte Hornets" />
             <item
                 android:id="@+id/chicago"
+                android:icon="@drawable/open_heart"
                 android:title="Chicago Bulls" />
             <item
                 android:id="@+id/cleveland"
+                android:icon="@drawable/open_heart"
                 android:title="Cleveland Cavaliers" />
 
             <item
                 android:id="@+id/detroit"
+                android:icon="@drawable/open_heart"
                 android:title="Detroit Pistons" />
 
             <item
                 android:id="@+id/indiana"
+                android:icon="@drawable/open_heart"
                 android:title="Indiana Pacers" />
             <item
                 android:id="@+id/miami"
+                android:icon="@drawable/open_heart"
                 android:title="Miami Heat" />
 
             <item
                 android:id="@+id/milwaukee"
+                android:icon="@drawable/open_heart"
                 android:title="Milwaukee Bucks" />
 
             <item
                 android:id="@+id/newyork"
+                android:icon="@drawable/open_heart"
                 android:title="New York Knicks" />
 
             <item
                 android:id="@+id/orlando"
+                android:icon="@drawable/open_heart"
                 android:title="Orlando Magic" />
 
             <item
                 android:id="@+id/philadelphia"
-                android:title="Philadelphia Sixers" />
+                android:icon="@drawable/open_heart"
+                android:title="Philadelphia 76ers" />
 
             <item
                 android:id="@+id/toronto"
+                android:icon="@drawable/open_heart"
                 android:title="Toronto Raptors" />
 
             <item
                 android:id="@+id/washington"
+                android:icon="@drawable/open_heart"
                 android:title="Washington Wizards" />
 
         </menu>
@@ -64,61 +79,76 @@
         <menu>
             <item
                 android:id="@+id/dallas"
+                android:icon="@drawable/open_heart"
                 android:title="Dallas Mavericks" />
             <item
                 android:id="@+id/denver"
+                android:icon="@drawable/open_heart"
                 android:title="Denver Nuggets" />
             <item
                 android:id="@+id/goldenstate"
+                android:icon="@drawable/open_heart"
                 android:title="Golden State Warriors" />
 
             <item
                 android:id="@+id/houston"
+                android:icon="@drawable/open_heart"
                 android:title="Houston Rockets" />
 
             <item
                 android:id="@+id/la_clippers"
-                android:title="LA Clippers" />
+                android:icon="@drawable/open_heart"
+                android:title="Los Angeles Clippers" />
 
             <item
                 android:id="@+id/la_lakers"
-                android:title="LA Lakers" />
+                android:icon="@drawable/open_heart"
+                android:title="Los Angeles Lakers" />
 
             <item
                 android:id="@+id/memphis"
+                android:icon="@drawable/open_heart"
                 android:title="Memphis Grizzlies" />
 
             <item
                 android:id="@+id/minnestoa"
+                android:icon="@drawable/open_heart"
                 android:title="Minnesota Timberwolves" />
 
 
             <item
                 android:id="@+id/new_orleans"
+                android:icon="@drawable/open_heart"
                 android:title="New Orleans Pelicans" />
 
             <item
                 android:id="@+id/oklahomacity"
+                android:icon="@drawable/open_heart"
                 android:title="Oaklahoma City Thunder" />
 
             <item
                 android:id="@+id/phoenix"
+                android:icon="@drawable/open_heart"
                 android:title="Phoenix Suns" />
 
             <item
                 android:id="@+id/portland"
+                android:icon="@drawable/open_heart"
                 android:title="Portland Trail Blazers" />
 
             <item
                 android:id="@+id/sacramento"
+                android:icon="@drawable/open_heart"
                 android:title="Sacramento Kings" />
 
             <item
                 android:id="@+id/san_antonio"
+                android:icon="@drawable/open_heart"
                 android:title="San Antonio Spurs" />
 
             <item
                 android:id="@+id/utah"
+                android:icon="@drawable/open_heart"
                 android:title="Utah Jazz" />
         </menu>
     </item>

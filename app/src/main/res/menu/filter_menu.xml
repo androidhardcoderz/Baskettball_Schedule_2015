@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/teams"
+        android:icon="@drawable/team_icon"
+        android:title="Teams" />
+
+    <item
+        android:id="@+id/month"
+        android:icon="@drawable/month_icon"
+        android:title="Month" />
+
+    <item
+        android:id="@+id/home_games"
+        android:icon="@drawable/home_icon"
+        android:title="Home Games" />
+
+    <item
+        android:id="@+id/away_games"
+        android:icon="@drawable/away_icon"
+        android:title="Away Games" />
+
+</menu>
+
