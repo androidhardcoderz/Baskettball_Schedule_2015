@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 public class AppPreferences {
 
     public static final String FAVORITE = "favorite";
+    public static final String FAVORITE_SET = "favorite_set";
 
 
     public static void setFavoriteTeam(Context context,int index){
@@ -20,5 +21,13 @@ public class AppPreferences {
 
     public static int getFavoriteTeam(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getInt(FAVORITE,0);
+    }
+
+    public static boolean isFavoriteTeamSet(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).getBoolean(FAVORITE_SET, false);
+    }
+
+    public static void isFavoriteTeamSetFlag(Context context){
+        PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext()).edit().putBoolean(FAVORITE_SET,true).apply();
     }
 }

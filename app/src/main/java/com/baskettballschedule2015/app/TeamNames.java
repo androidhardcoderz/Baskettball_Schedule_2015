@@ -1,5 +1,7 @@
 package com.baskettballschedule2015.app;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +47,10 @@ public class TeamNames {
         teamNames.add("Toronto Raptors");
         teamNames.add("Utah Jazz");
         teamNames.add("Washington Wizards");
+    }
+
+    public int findTeamIndex(String name){
+        Log.i("TEAM NAMES",name);
+        return teamNames.indexOf(name);
     }
 }

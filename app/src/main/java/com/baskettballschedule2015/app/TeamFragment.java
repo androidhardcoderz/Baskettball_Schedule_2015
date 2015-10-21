@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -17,18 +16,20 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.appnext.appnextsdk.API.AppnextAPI;
-import com.appnext.appnextsdk.API.AppnextAd;
-import com.appnext.appnextsdk.API.AppnextAdRequest;
+import com.appbrain.AppBrainBanner;
 import com.kennyc.bottomsheet.BottomSheet;
 import com.kennyc.bottomsheet.BottomSheetListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +41,6 @@ public class TeamFragment extends Fragment {
 
     public static final String TEAM_DATA = "team_data";
     public static final String TEAM_POSITION = "team_position";
-    protected ArrayList<AppnextAd> adsList;
     ArrayList<Game> games = new ArrayList<>();
     @Bind(R.id.teamGamesLayout)
     LinearLayout mainLayout;
@@ -50,18 +50,21 @@ public class TeamFragment extends Fragment {
     TextView teamNameTextView;
     @Bind(R.id.adLayout)
     CoordinatorLayout adLayout;
+    @Bind(R.id.scrollView)
+    ScrollView scrollV;
     int position;
     ValueAnimator colorAnimation;
-    AppnextAPI api;
+
+    ArrayList<Months> months;
+
+    //background classes
     AwayGamesFilterTask awayFilterTask;
     HomeGamesFilterTask homeFilterTask;
-
+    MonthGamesFilterTask monthFilterTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
 
         if (getArguments().containsKey(TEAM_DATA)) {
             games = getArguments().getParcelableArrayList(TEAM_DATA);
@@ -70,18 +73,8 @@ public class TeamFragment extends Fragment {
         if (getArguments().containsKey(TEAM_POSITION))
             position = getArguments().getInt(TEAM_POSITION);
 
-        api = new AppnextAPI(getActivity(), "fc9291ef-f541-41cf-84d0-46d73ffa710c");
-        api.setAdListener(new AppnextAPI.AppnextAdListener() {
-            @Override
-            public void onError(String error) {
-            }
 
-            @Override
-            public void onAdsLoaded(ArrayList<AppnextAd> ads) {
 
-            }
-        });
-        api.loadAds(new AppnextAdRequest());
     }
 
     @Nullable
@@ -94,36 +87,55 @@ public class TeamFragment extends Fragment {
 
         setUpdateColorAnimator();
         teamNameTextView.setText(new TeamNames().getTeamNames().get(position));
+        new TeamFonts(getActivity()).setCustomTeamFont(teamNameTextView,position);
 
-        if (AppPreferences.getFavoriteTeam(getActivity()) != position) {
-            FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.myFAB);
-            myFab.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    //snack bar message
-                    //save team as favorite
-                    Snackbar
-                            .make(adLayout, teamNameTextView.getText().toString() + " Set As Favorite Team", Snackbar.LENGTH_LONG)
-                            .show(); // Don’t forget to show!
-                    AppPreferences.setFavoriteTeam(getActivity(), position);
-                }
-            });
-        }
-
-        addGamesToLayout(games);
-
+        //filter action bar (toolbar) item addition
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ImageView filterImageView = (ImageView) toolbar.findViewById(R.id.filterImageView);
         filterImageView.setVisibility(View.VISIBLE);
         filterImageView.setOnClickListener(new FilterGames());
 
+        addGamesToLayout(games);
+
+       // mainLayout.setBackgroundColor(ContextCompat.getColor(getActivity(),new TeamColors().getColors(position)));
+
         return view;
     }
 
-    private void addGamesToLayout(ArrayList<Game> games) {
-        for (Game game : games) {
-            mainLayout.addView(new GameRow(getActivity(), game), mainLayout.getChildCount());
-        }
+    public void addBanner(ViewGroup parent, int index) {
+
+        AppBrainBanner banner = new AppBrainBanner(getContext());
+        parent.addView(banner,index);
     }
+
+    private void addGamesToLayout(ArrayList<Game> games) {
+
+        for ( Game game : games) {
+
+            GameRow gRow = new GameRow(getActivity(),game,position);
+            gRow.setAnimation(AnimationUtils.loadAnimation(getActivity(),android.R.anim.slide_in_left ));
+            Animation anim = gRow.getAnimation();
+            anim.setDuration(1000 + (games.indexOf(game) * 25));
+            mainLayout.addView(gRow, mainLayout.getChildCount());
+            gRow.startAnimation(anim);
+        }
+
+        int rInt = new Random().nextInt(mainLayout.getChildCount());
+
+        if(rInt < 3){
+            rInt += 5;
+        }else if(rInt > mainLayout.getChildCount() - 3){
+            rInt -= 10;
+        }else{
+
+        }
+        addBanner(mainLayout,rInt);
+
+        scrollV.smoothScrollTo(0,0);
+        //mainLayout.addView(new GameRow(getActivity(),game),mainLayout.getChildCount());
+    }
+
+
 
     private void startAwayFilterTask() {
 
@@ -135,8 +147,8 @@ public class TeamFragment extends Fragment {
         awayFilterTask.execute(games);
     }
 
-    private void startHomeFilterTask(){
-        if(homeFilterTask != null && homeFilterTask.getStatus() == AsyncTask.Status.RUNNING){
+    private void startHomeFilterTask() {
+        if (homeFilterTask != null && homeFilterTask.getStatus() == AsyncTask.Status.RUNNING) {
             homeFilterTask.cancel(true);
         }
 
@@ -146,8 +158,8 @@ public class TeamFragment extends Fragment {
 
     private void resetAllGames() {
         int totalViews = mainLayout.getChildCount();
-        Log.i("TAG",totalViews + " TOTAL VIEWS");
-        mainLayout.removeViewsInLayout(1,totalViews - 1);
+        Log.i("TAG", totalViews + " TOTAL VIEWS");
+        mainLayout.removeViewsInLayout(1, totalViews - 1);
     }
 
     @Override
@@ -167,9 +179,20 @@ public class TeamFragment extends Fragment {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 headerLayout.setBackgroundColor((Integer) animator.getAnimatedValue());
+
             }
 
         });
+
+    }
+
+    private void showMonthSelector() {
+        //show display with month names
+        new BottomSheet.Builder(getActivity())
+                .setSheet(R.menu.month_menu)
+                .setTitle(R.string.select_months)
+                .setListener(new FilterByMonths())
+                .show();
 
     }
 
@@ -187,6 +210,7 @@ public class TeamFragment extends Fragment {
                     .setSheet(R.menu.filter_menu)
                     .setTitle(R.string.filter_title)
                     .setListener(new FilterByListener())
+                    .setCancelable(true)
                     .show();
         }
     }
@@ -211,14 +235,40 @@ public class TeamFragment extends Fragment {
                     startHomeFilterTask();
                     break;
                 case R.id.month:
+                    showMonthSelector();
                     break;
-                case R.id.teams:
-                    break;
+                case R.id.all_games:
+                    resetAllGames();
+                    addGamesToLayout(games);
                 default:
                     break;
             }
 
             Log.i("TAG", menuItem.getTitle() + " CLICKED");
+        }
+
+        @Override
+        public void onSheetDismissed(int i) {
+
+
+        }
+    }
+
+    class FilterByMonths implements BottomSheetListener {
+
+        @Override
+        public void onSheetShown() {
+
+        }
+
+        @Override
+        public void onSheetItemSelected(MenuItem menuItem) {
+            resetAllGames();
+            if (monthFilterTask != null && monthFilterTask.getStatus() == AsyncTask.Status.RUNNING) {
+                monthFilterTask.cancel(true);
+            }
+            new MonthGamesFilterTask(new Months()
+                    .findMonthNumeric(menuItem.getTitle().toString())).execute(games);
         }
 
         @Override
@@ -258,7 +308,12 @@ public class TeamFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Game> games) {
             super.onPostExecute(games);
-            addGamesToLayout(games);
+            if(games.size() == 0 || games == null){
+                showErrorSnackBar();
+
+            }else{
+                addGamesToLayout(games);
+            }
         }
     }
 
@@ -293,9 +348,67 @@ public class TeamFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Game> games) {
             super.onPostExecute(games);
+            if(games.size() == 0 || games == null){
+                showErrorSnackBar();
 
-            addGamesToLayout(games);
+            }else{
+                addGamesToLayout(games);
+            }
         }
+    }
+
+    class MonthGamesFilterTask extends AsyncTask<ArrayList<Game>, Void, ArrayList<Game>> {
+
+        int month;
+
+        public MonthGamesFilterTask(int month) {
+            this.month = month;
+        }
+
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p/>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param params The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+        @Override
+        protected ArrayList<Game> doInBackground(ArrayList<Game>... params) {
+            ArrayList<Game> games = new ArrayList<>();
+
+            for (Game game : params[0]) {
+                if (game.getMonth() == month) {
+                    games.add(game);
+                }
+            }
+
+            return games;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Game> games) {
+            super.onPostExecute(games);
+
+            if(games.size() == 0 || games == null){
+                    showErrorSnackBar();
+
+            }else{
+                addGamesToLayout(games);
+            }
+
+        }
+    }
+
+    private void showErrorSnackBar(){
+        Snackbar.make(adLayout, "No Games Found, Showing All Remaining Games", Snackbar.LENGTH_LONG).show();
+        addGamesToLayout(games);
     }
 
 

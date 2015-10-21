@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:contextClickable="false">
 
-    <TableRow
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Large Text"
+                android:id="@+id/date"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Large Text"
+                android:id="@+id/time"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Large Text"
-            android:id="@+id/date"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Large Text"
-            android:id="@+id/time"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Large Text"
             android:id="@+id/opponet"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal" />
-    </TableRow>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_width="match_parent"
+        android:layout_height= "2dp"
+        android:background="@android:color/black" />
+
 </LinearLayout>

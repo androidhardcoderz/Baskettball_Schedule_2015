@@ -124,7 +124,7 @@
             <item
                 android:id="@+id/oklahomacity"
                 android:icon="@drawable/open_heart"
-                android:title="Oaklahoma City Thunder" />
+                android:title="Oklahoma City Thunder" />
 
             <item
                 android:id="@+id/phoenix"
@@ -152,4 +152,8 @@
                 android:title="Utah Jazz" />
         </menu>
     </item>
+    <item
+        android:id="@+id/change_fav_team"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Change Favorite Team" />
 </menu>

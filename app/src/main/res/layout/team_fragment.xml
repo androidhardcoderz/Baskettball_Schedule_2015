@@ -7,26 +7,20 @@
     android:fillViewport="true">
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/myFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:src="@drawable/filled_heart"
-        app:elevation="4dp" />
-
     <ScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:animateLayoutChanges="true"
+        android:id="@+id/scrollView">
 
         <LinearLayout
             android:id="@+id/teamGamesLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:animateLayoutChanges="true">
+            >
 
             <RelativeLayout
                 android:id="@+id/teamHeaderLayout"

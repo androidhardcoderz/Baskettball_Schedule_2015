@@ -126,6 +126,7 @@
     <orderEntry type="library" exported="" name="play-services-identity-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-vision-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="BottomSheet-2.0.1" level="project" />
+    <orderEntry type="library" exported="" name="appbrain-applift-sdk-11.10" level="project" />
     <orderEntry type="library" exported="" name="play-services-drive-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-8.1.0" level="project" />
@@ -145,7 +146,6 @@
     <orderEntry type="library" exported="" name="play-services-maps-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-panorama-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="appnextAPI" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-plus-8.1.0" level="project" />

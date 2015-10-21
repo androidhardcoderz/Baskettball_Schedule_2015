@@ -40,6 +40,21 @@ public class FormatGameStartTime {
 
 	}
 
+	public int isGameUpcoming(String scheduled){
+
+		Date dateG = null;
+		try {
+			dateG = parseFormat.parse(scheduled);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return dateG.compareTo(new Date());
+
+
+
+	}
+
 	public String getDateOfGame(String s) {
 		try {
 			Date date = parseFormat.parse(s);

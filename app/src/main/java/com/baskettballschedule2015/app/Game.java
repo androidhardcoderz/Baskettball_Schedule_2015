@@ -2,6 +2,7 @@ package com.baskettballschedule2015.app;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by Scott on 10/4/2015.
@@ -27,6 +28,7 @@ public class Game implements Parcelable {
     private String date;
     private String time;
     private boolean isHome;
+    private int month;
 
     public Game() {
 
@@ -40,6 +42,7 @@ public class Game implements Parcelable {
         date = in.readString();
         time = in.readString();
         isHome = in.readByte() != 0x00;
+        month = in.readInt();
 
     }
 
@@ -49,6 +52,11 @@ public class Game implements Parcelable {
         }else{
             isHome = false;
         }
+    }
+
+    public void convertMonth(){
+        setMonth(Integer.parseInt(getDate().toString().substring(0,2)));
+        Log.i("TAG", getMonth() + " MONTH DIGITS");
     }
 
     public boolean isHome() {
@@ -113,6 +121,7 @@ public class Game implements Parcelable {
         dest.writeString(date);
         dest.writeString(time);
         dest.writeByte((byte) (isHome ? 0x01 : 0x00));
+        dest.writeInt(month);
 
     }
 
@@ -130,5 +139,13 @@ public class Game implements Parcelable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 }

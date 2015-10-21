@@ -9,7 +9,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "launch"
+
     }
     buildTypes {
         release {
@@ -20,6 +21,9 @@ android {
 
     repositories {
         maven { url "https://jitpack.io" }
+        maven {
+            url 'http://swisscodemonkeys.github.io/appbrain-sdk/maven'
+        }
     }
 }
 
@@ -30,7 +34,7 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.android.gms:play-services:8.1.0'
-    compile files('libs/appnextAPI.jar')
     compile 'com.github.Kennyc1012:BottomSheet:2.0.1'
+    compile 'com.appbrain:appbrain-applift-sdk:+'
 
 }

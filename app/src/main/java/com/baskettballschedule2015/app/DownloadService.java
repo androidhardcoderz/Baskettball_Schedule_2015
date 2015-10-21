@@ -65,7 +65,12 @@ public class DownloadService {
         Log.i(TAG, gamesArray.length() + " LENGTH OF ARRAY FOR TEAM");
 
         for (int i = 0; i < gamesArray.length(); i++) {
+            
             JSONObject gameObject = gamesArray.getJSONObject(i);
+
+            if(new FormatGameStartTime().isGameUpcoming(gameObject.getString("scheduled")) == -1){
+                continue;
+            }
 
             Game game = new Game();
             game.setScheduled(gameObject.getString("scheduled"));
@@ -76,9 +81,8 @@ public class DownloadService {
             game.convertDate();
             game.convertTime();
             game.determineIsHomeGame(teamname);
+            game.convertMonth();
             games.add(game);
-
-
         }
 
         return games;

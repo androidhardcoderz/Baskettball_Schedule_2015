@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/teams"
-        android:icon="@drawable/team_icon"
-        android:title="Teams" />
+        android:id="@+id/all_games"
+        android:icon="@drawable/all_games_icon"
+        android:title="All Games" />
 
     <item
         android:id="@+id/month"

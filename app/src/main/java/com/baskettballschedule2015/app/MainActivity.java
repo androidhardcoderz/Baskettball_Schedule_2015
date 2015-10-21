@@ -10,9 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.appbrain.AppBrain;
 
 import org.json.JSONException;
 
@@ -20,17 +23,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FavoriteTeamFragment.ITeamSelected {
 
     ScheduleLoader loader;
     LoadingFragment loadingFragment;
     String teamNameSelected;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppBrain.init(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ImageView filterImageView = (ImageView) toolbar.findViewById(R.id.filterImageView);
@@ -53,6 +57,18 @@ public class MainActivity extends AppCompatActivity
             PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).edit().putBoolean("FIRST", false).apply();
         }
 
+        if(!AppPreferences.isFavoriteTeamSet(this)){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.mainContainer,new FavoriteTeamFragment()).commit();
+        }else{
+            //favorite team has been binded already
+            teamNameSelected = new TeamNames().getTeamNames().get(AppPreferences.getFavoriteTeam(this));
+
+            showLoadingFragment();
+            startBackgroundThread(teamNameSelected);
+        }
+
+
     }
 
     @Override
@@ -63,20 +79,46 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        teamNameSelected = item.getTitle().toString();
+        if(!item.getTitle().equals("Change Favorite Team")) {
+            teamNameSelected = item.getTitle().toString();
 
-        showLoadingFragment();
-        startBackgroundThread(item.getTitle().toString());
+            showLoadingFragment();
+            startBackgroundThread(item.getTitle().toString());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+            //closes drawer if open still
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.mainContainer,new FavoriteTeamFragment()).commit();
+
+            //closes drawer
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
         return true;
+
+    }
+
+    public void onTeamItemSelected(String item) {
+
+            teamNameSelected = item;
+            showLoadingFragment();
+            startBackgroundThread(item);
+            //closes drawer if open still
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+
+
     }
 
     private void showTeamFragment(ArrayList<Game> games) {
@@ -95,12 +137,21 @@ public class MainActivity extends AppCompatActivity
 
     private void startBackgroundThread(String teamName) {
 
+        Log.i("TAG", " TEAM NAME " + teamName);
+
         if (loader != null && loader.getStatus() == AsyncTask.Status.RUNNING) {
             loader.cancel(true);
         }
         loader = new ScheduleLoader(this, new TeamNames().getTeamNames().indexOf(teamName));
         loader.execute(teamName);
     }
+
+    @Override
+    public void onFavaoriteTeamSelected(int position, String name) {
+        Log.i("TAG", "TEAM SELECTED " + name);
+        onTeamItemSelected(name);
+    }
+
 
     class ScheduleLoader extends AsyncTask<String, Void, ArrayList<Game>> {
 
@@ -111,6 +162,8 @@ public class MainActivity extends AppCompatActivity
 
             this.context = context;
             this.index = index;
+
+            Log.i("TAG", "INDEX " + index);
         }
 
         /**
@@ -149,5 +202,7 @@ public class MainActivity extends AppCompatActivity
             showTeamFragment(games);
         }
     }
+
+
 
 }
